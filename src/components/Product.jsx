@@ -18,34 +18,36 @@ const Product = ({ post }) => {
 
     const [selected, useSelected] = useState(false);
     return (
-        <div>
+        <div className='flex flex-col items-center justify-between p-4 bg-white rounded-xl shadow-[0_10px_20px_rgba(0,0,0,0.2)] hover:shadow-[0_15px_25px_rgba(0,0,0,0.3)] hover:scale-110 transition duration-300 ease-in rounded-xl gap-3 p-4 mt-10 ml-5 rounded-xl'>
             <div>
-                <p>{post.title}</p>
+                <p className='text-gray-700 font-semibold text-lg text-left truncate w-40 mt-1'>{post.title}</p>
             </div>
             <div>
-                <p>{post.description}</p>
+                <p className='w-40 text-gray-400 font-normal text-[10px] text-left'>{post.description.split(" ").slice(0, 10).join(" ") + "..."}</p>
             </div>
-            <div>
-                <img src={post.image} />
+            <div className='h-[180px]'>
+                <img src={post.image} className='h-full w-full' />
             </div>
-            <div>
-                <p>{post.price}</p>
-            </div>
-            {/* Hardcore data */}
-            {/* <button>
+            <div className='flex justify-between gap-12'>
+                <div>
+                    <p className='text-green-600 font-semibold items-center w-full mt-5'>${post.price}</p>
+                </div>
+
                 {
-                    selected ? <p>Remove Item</p> : <p>Add to Cart</p>
+                    cart?.some((p) => p.id === post.id) ?
+                        (<button 
+                        className='text-gray-700 border-2 border-gray-700 rounded-full font-semibold *:text-[12px]
+                        uppercase p-1 px-3 hover:bg-gray-700 hover:text-white transition ease-in duration-300'
+                        onClick={removeFromCart}>
+                            Remove Item
+                        </button>) :
+                        (<button onClick={addToCart}>
+                            Add to Cart
+                        </button>)
                 }
-            </button> */}
-            {
-                cart.some((p) => p.id === post.id) ?
-                    (<button onClick={removeFromCart}>
-                        Remove Item
-                    </button>) :
-                    (<button onClick={addToCart}>
-                        Add to Cart
-                    </button>)
-            }
+
+            </div>
+
 
         </div>
     )
